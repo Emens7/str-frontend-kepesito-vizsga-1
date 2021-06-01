@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row row-cols-4">
+
+    <app-card *ngFor="let user of users" class="col mb-3"
+    [userImg]="user.avatar_url"
+    [userName]="user.login"
+    [commits]="user.contributions"></app-card>
+
+  </div>
+
+</div>
+
