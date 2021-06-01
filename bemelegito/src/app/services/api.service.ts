@@ -8,15 +8,20 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-  url= "https://api.github.com/repos/angular/angular/contributors?per_page=100"
+  urlAll = "https://api.github.com/repos/angular/angular/contributors?per_page=100";
 
+  urlRepos = "https://api.github.com/users";
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
   getUser(): Observable<Contributor[]> {
-    return this.httpClient.get<Contributor[]>(this.url)
+    return this.httpClient.get<Contributor[]>(this.urlAll)
+  }
+
+  getUserById(login: string): Observable<Contributor> {
+    return this.httpClient.get<Contributor>(`${this.urlRepos}/${login}/repos`);
   }
 
 }

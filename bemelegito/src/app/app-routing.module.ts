@@ -9,8 +9,12 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'repo',
+    path: 'repo/:login',
     component: RepoComponent
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
 
