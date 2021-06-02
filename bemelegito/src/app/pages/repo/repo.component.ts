@@ -24,11 +24,13 @@ export class RepoComponent implements OnInit {
     this.getUserById();
   }
   getUserById() {
+    new Date()
     this.apiService.getUserReposById(this.route.snapshot.paramMap.get('login')!).subscribe((apiResponse: Repo[]) => {
-      this.userRepos = apiResponse;
+      this.userRepos = apiResponse.sort((a: Repo, b: Repo) => {
+        return new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf();
+      });
+
     })
   }
-
-
 
 }

@@ -21,11 +21,11 @@ export class HomeComponent implements OnInit {
 
   getUserData(): void {
     this.apiService.getUser().subscribe((apiResponse: Contributor[]) => {
-      this.users = apiResponse;
+      this.users = apiResponse.sort((a: Contributor, b: Contributor) => {
+        return b.contributions - a.contributions;
+      });
 
-      console.log(this.users)
-
-
+      //console.log(this.users)
     })
   }
 
