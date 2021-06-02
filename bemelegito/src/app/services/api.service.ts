@@ -2,6 +2,7 @@ import { Contributor } from './../model/contributor';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Repo } from '../model/repo';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class ApiService {
 
   urlRepos = "https://api.github.com/users";
 
+
   constructor(
     private httpClient: HttpClient,
   ) { }
@@ -20,8 +22,8 @@ export class ApiService {
     return this.httpClient.get<Contributor[]>(this.urlAll)
   }
 
-  getUserById(login: string): Observable<Contributor> {
-    return this.httpClient.get<Contributor>(`${this.urlRepos}/${login}/repos`);
+  getUserReposById(login: string): Observable<Repo[]> {
+    return this.httpClient.get<Repo[]>(`${this.urlRepos}/${login}/repos`);
   }
 
 }

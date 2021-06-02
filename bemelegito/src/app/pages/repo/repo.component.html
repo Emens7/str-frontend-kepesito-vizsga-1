@@ -1,1 +1,41 @@
-<p>repo works!</p>
+
+<div class="col-md-12">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover mx-auto w-auto">
+        <thead>
+          <tr>
+            <th>
+              Repo name:
+            </th>
+            <th>
+              Fork:
+            </th>
+            <th>
+              Stargazers count:
+            </th>
+            <th>
+              Update at:
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userRepo of userRepos">
+            <td>
+              {{userRepo.name}}
+            </td>
+            <td>
+              {{userRepo.fork}}
+            </td>
+            <td class="count">
+              {{userRepo.stargazers_count}}
+            </td>
+            <td>
+              {{userRepo. updated_at}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

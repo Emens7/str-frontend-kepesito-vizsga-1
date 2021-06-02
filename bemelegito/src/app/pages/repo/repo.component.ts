@@ -2,6 +2,7 @@ import { Contributor } from './../../model/contributor';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
+import { Repo } from 'src/app/model/repo';
 
 @Component({
   selector: 'app-repo',
@@ -10,7 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RepoComponent implements OnInit {
 
-  oneUser? : Contributor;
+  userRepos: Repo[] = [];
+
+
 
   constructor(
     private apiService: ApiService,
@@ -21,9 +24,8 @@ export class RepoComponent implements OnInit {
     this.getUserById();
   }
   getUserById() {
-    this.apiService.getUserById(this.route.snapshot.paramMap.get('login')!).subscribe((apiResponse: Contributor) => {
-      this.oneUser = apiResponse;
-      console.log(this.oneUser)
+    this.apiService.getUserReposById(this.route.snapshot.paramMap.get('login')!).subscribe((apiResponse: Repo[]) => {
+      this.userRepos = apiResponse;
     })
   }
 
