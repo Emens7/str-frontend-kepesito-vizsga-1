@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RepoComponent implements OnInit {
 
+  pageNumber = 1;
   userRepos: Repo[] = [];
 
   constructor(
@@ -24,11 +25,11 @@ export class RepoComponent implements OnInit {
     this.getUserById();
   }
   getUserById() {
-    new Date()
-    this.apiService.getUserReposById(this.route.snapshot.paramMap.get('login')!).subscribe((apiResponse: Repo[]) => {
-      this.userRepos = apiResponse.sort((a: Repo, b: Repo) => {
+    const login = this.route.snapshot.paramMap.get('login')!;
+    this.apiService.getUserReposById(login, this.pageNumber).subscribe((apiResponse: Repo[]) => {
+      this.userRepos = this.userRepos.concat(apiResponse.sort((a: Repo, b: Repo) => {
         return new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf();
-      });
+      }));
 
     },
     (error: any) => {
@@ -36,6 +37,12 @@ export class RepoComponent implements OnInit {
       console.log('Error!');
     }
     )
+  }
+
+  onScroll() {
+    this.pageNumber++;
+    this.getUserById();
+    console.log('scrolled!!');
   }
 
 }

@@ -22,8 +22,8 @@ export class ApiService {
     return this.httpClient.get<Contributor[]>(`${this.urlAll}&page=${page}`);
   }
 
-  getUserReposById(login: string): Observable<Repo[]> {
-    return this.httpClient.get<Repo[]>(`${this.urlRepos}/${login}/repos`);
+  getUserReposById(login: string, page: number): Observable<Repo[]> {
+    return this.httpClient.get<Repo[]>(`${this.urlRepos}/${login}/repos?page=${page}`);
   }
 
 }
