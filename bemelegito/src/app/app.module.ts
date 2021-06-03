@@ -8,6 +8,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { CardComponent } from './card/card.component';
 import { RepoComponent } from './pages/repo/repo.component';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +24,15 @@ import { RepoComponent } from './pages/repo/repo.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    InfiniteScrollModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

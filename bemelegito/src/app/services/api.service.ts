@@ -18,8 +18,8 @@ export class ApiService {
     private httpClient: HttpClient,
   ) { }
 
-  getUser(): Observable<Contributor[]> {
-    return this.httpClient.get<Contributor[]>(this.urlAll)
+  getUser(page: number): Observable<Contributor[]> {
+    return this.httpClient.get<Contributor[]>(`${this.urlAll}&page=${page}`);
   }
 
   getUserReposById(login: string): Observable<Repo[]> {
@@ -27,3 +27,7 @@ export class ApiService {
   }
 
 }
+function retry(arg0: number): import("rxjs").OperatorFunction<Contributor[], unknown> {
+  throw new Error('Function not implemented.');
+}
+

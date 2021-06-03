@@ -1,6 +1,7 @@
 import { Contributor } from './../../model/contributor';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private apiService : ApiService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -20,13 +22,25 @@ export class HomeComponent implements OnInit {
   }
 
   getUserData(): void {
-    this.apiService.getUser().subscribe((apiResponse: Contributor[]) => {
+    this.apiService.getUser(1).subscribe(
+      (apiResponse: Contributor[]) => {
       this.users = apiResponse.sort((a: Contributor, b: Contributor) => {
         return b.contributions - a.contributions;
       });
 
       //console.log(this.users)
-    })
+    },
+
+    (error: any) => {
+      this.toastr.error('The page failed to load!')
+      console.log('Error!');
+    }
+
+    )
+  }
+
+  onScroll() {
+    console.log('scrolled!!');
   }
 
 }
