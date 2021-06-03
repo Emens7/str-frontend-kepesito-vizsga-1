@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Repo } from 'src/app/model/repo';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-repo',
@@ -13,11 +14,10 @@ export class RepoComponent implements OnInit {
 
   userRepos: Repo[] = [];
 
-
-
   constructor(
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -30,7 +30,12 @@ export class RepoComponent implements OnInit {
         return new Date(b.updated_at).valueOf() - new Date(a.updated_at).valueOf();
       });
 
-    })
+    },
+    (error: any) => {
+      this.toastr.error('The page failed to load!')
+      console.log('Error!');
+    }
+    )
   }
 
 }
