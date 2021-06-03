@@ -9,7 +9,7 @@ import { Repo } from '../model/repo';
 })
 export class ApiService {
 
-  urlAll = "https://api.github.com/repos/angular/angular/contributors?per_page=100";
+  urlAll = "https://api.github.com/repos/angular/angular/contributors?per_page=50";
 
   urlRepos = "https://api.github.com/users";
 
@@ -26,8 +26,5 @@ export class ApiService {
     return this.httpClient.get<Repo[]>(`${this.urlRepos}/${login}/repos`);
   }
 
-}
-function retry(arg0: number): import("rxjs").OperatorFunction<Contributor[], unknown> {
-  throw new Error('Function not implemented.');
 }
 

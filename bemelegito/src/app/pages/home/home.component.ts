@@ -10,7 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit {
 
-  users?: Contributor[];
+  pageNumber = 1;
+  users: Contributor[] = [];
 
   constructor(
     private apiService : ApiService,
@@ -22,11 +23,12 @@ export class HomeComponent implements OnInit {
   }
 
   getUserData(): void {
-    this.apiService.getUser(1).subscribe(
+    this.apiService.getUser(this.pageNumber).subscribe(
       (apiResponse: Contributor[]) => {
-      this.users = apiResponse.sort((a: Contributor, b: Contributor) => {
+
+      this.users = this.users.concat(apiResponse.sort((a: Contributor, b: Contributor) => {
         return b.contributions - a.contributions;
-      });
+      }));
 
       //console.log(this.users)
     },
@@ -40,6 +42,8 @@ export class HomeComponent implements OnInit {
   }
 
   onScroll() {
+    this.pageNumber++;
+    this.getUserData();
     console.log('scrolled!!');
   }
 
